@@ -636,6 +636,46 @@
          </div>
       </div>
 
+      <div ng-if="item.type === TYPES.MYLIGHT"
+           class="item-entity-container">
+
+         <div ng-if="!item.controlsEnabled">
+            <div class="item-entity">
+               <div ng-if="entity.state == 'on'"
+                     class="item-entity--icon -myleft mdi mdi-minus"
+                     ng-click="decreaseBrightness($event, item, entity)"></div>
+               <div class="item-entity--icon -mylight mdi"
+                     ng-class="entityIcon(item, entity)"></div>
+               <div ng-if="entity.state == 'on'"
+                     class="item-entity--icon -myright mdi mdi-plus"
+                     ng-click="increaseBrightness($event, item, entity)"></div>
+            </div>
+         </div>
+         <div ng-if="item.controlsEnabled" class="item-entity-sliders"
+              ng-click="preventClick($event)">
+            <div ng-repeat="slider in item.sliders track by $index"
+                 ng-if="(_c = getLightSliderConf(slider, entity))"
+                 class="item-slider-container">
+
+               <div class="item-slider-title" ng-if="slider.title">
+                  <span ng-bind="slider.title"></span>:
+                  <span ng-bind="getLightSliderValue(slider, _c)"></span>
+               </div>
+
+               <div class="item-slider">
+                  <input type="range" ng-model="_c.value" value="{{ _c.value }}"
+                         ng-change="lightSliderChanged(slider, item, entity, _c)"
+                         step="{{ _c.step }}" min="{{ _c.min }}" max="{{ _c.max }}">
+               </div>
+            </div>
+
+            <div class="item-entity--back-button"
+                 ng-click="closeLightSliders($event, item, entity)">
+               <i class="mdi mdi-chevron-left"></i> Back
+            </div>
+         </div>
+      </div>
+
       <div ng-if="item.type === TYPES.TEXT_LIST"
            class="item-entity-container">
          <div class="item-list">
@@ -890,6 +930,24 @@
                   </td>
                   <td class="weather-list--secondary">
                      <div ng-bind="weatherListField('secondary', line, item, entity)"></div>
+                  </td>
+               </tr>
+            </table>
+         </div>
+      </div>
+
+      <div ng-if="item.type === TYPES.SENSORS_LIST"
+           class="item-entity-container">
+         <div class="sensors-list">
+            <table>
+               <tr ng-repeat="line in item.list track by $index" ng-class="listField('class', item, line)">
+                  <td>
+                     <i class="mdi" ng-class="listField('icon', item, line)" ng-if="line.icon"></i>
+                     <span ng-bind="listField('title', item, line)"></span>
+                  </td>
+                  <td class="sensors-list--value">
+                     <span ng-bind="listField('value', item, line)"></span>
+                     <span ng-bind="listField('unit', item, line)"></span>
                   </td>
                </tr>
             </table>

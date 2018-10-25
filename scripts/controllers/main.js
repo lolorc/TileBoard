@@ -36,6 +36,7 @@ function MainController ($scope, $location) {
       switch (item.type) {
          case TYPES.SWITCH:
          case TYPES.LIGHT:
+         case TYPES.MYLIGHT:
          case TYPES.FAN:
          case TYPES.INPUT_BOOLEAN: return $scope.toggleSwitch(item, entity);
 
@@ -70,6 +71,7 @@ function MainController ($scope, $location) {
       $event.stopPropagation();
 
       switch (item.type) {
+         case TYPES.MYLIGHT:
          case TYPES.LIGHT: return $scope.openLightSliders(item, entity);
       }
 
@@ -905,7 +907,7 @@ function MainController ($scope, $location) {
       var domain = "homeassistant";
       var group = item.id.split('.')[0];
 
-      if(['switch', 'light', 'fan'].indexOf(group) !== -1) domain = group;
+      if(['switch', 'light', 'mylight', 'fan'].indexOf(group) !== -1) domain = group;
 
       var service = "toggle";
 

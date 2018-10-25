@@ -38,6 +38,7 @@ var TYPES = {
    FAN: 'fan',
    INPUT_BOOLEAN: 'input_boolean',
    LIGHT: 'light',
+   MYLIGHT: 'mylight',
    TEXT_LIST: 'text_list',
    INPUT_NUMBER: 'input_number',
    INPUT_SELECT: 'input_select',
@@ -54,6 +55,7 @@ var TYPES = {
    CUSTOM: 'custom',
    ALARM: 'alarm',
    WEATHER_LIST: 'weather_list',
+   SENSORS_LIST: 'sensors_list',
    VACUUM: 'vacuum'
 };
 
